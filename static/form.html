@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>submit</title>
+<!-- 	<script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>  -->
+</head>
+<body>
+	<form action="http://192.168.1.158:3000/upload" id="userdata" method="post" enctype="multipart/form-data">
+		<p>
+			姓名：
+			<input type="text" name="name" />
+		</p>
+		<p>
+			性别：
+			<input type="radio" name="gender" value="男" />男
+			<input type="radio" name="gender" value="女" />女
+		</p>
+		<p>
+			职业：
+			<input type="checkbox" name="career" value="IT" />IT
+			<input type="checkbox" name="career" value="education" />教育
+			<input type="checkbox" name="career" value="finance" />金融
+		</p>
+		<p>
+			头像：
+			<input type="file" name="avatar" placeholder="" multiple="multiple" />
+		</p>
+		<p>
+			IMAGE&nbsp;<input type="file" name="avatar1" accept="image/*" capture="camera"><br /><br />
+			VIDEO&nbsp;<input type="file" name="avatar2" accept="video/*" capture="camcorder"><br /><br />
+			AUDIO&nbsp;<input type="file" name="avatar3" accept="audio/*" capture="microphone">
+		</p>
+		<p>
+			<input type="submit" name="" value="提交" />
+		</p>
+	</form>
+	<p>
+		<button id="ajax">AJAX</button>
+	</p>
+	<script type="text/javascript">
+		document.querySelector('button#ajax').onclick = (e) => {
+			
+			e.preventDefault();
+
+			let nameEle 	= 	document.querySelector('input[name="name"]'),
+				genderEle 	= 	document.querySelectorAll('input[name="gender"]'),
+				careerEle 	= 	document.querySelectorAll('input[name="career"]');
+
+			if (nameEle.value === '') return;				//name项不能为空
+
+			const formEle = document.querySelector('form#userdata');
+			const formData = new FormData(formEle);
+			const xhr = new XMLHttpRequest();
+
+			xhr.open('post', 'http://192.168.1.158:3000/upload');
+			xhr.send(formData);
+			xhr.onreadystatechange = (res) => {
+				alert(xhr.responseText);
+			}
+		}
+	</script>
+</body>
+</html>
